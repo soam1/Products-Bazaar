@@ -1,23 +1,15 @@
 package com.akashsoam.productsapp.api
 
-import com.akashsoam.productsapp.ProductResponse
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.akashsoam.productsapp.models.ProductResponse
+import com.akashsoam.productsapp.util.Constants
+import retrofit2.Response
 import retrofit2.http.GET
 
 
 interface ProductApi {
-    @GET("get")
+    @GET(Constants.GET_PRODUCTS)
 //    suspend fun getProducts(): List<Product>
-    suspend fun getProducts(): ProductResponse
+    suspend fun getProducts(): Response<ProductResponse>
 
-    companion object {
-        fun create(): ProductApi {
-            return Retrofit.Builder()
-                .baseUrl("https://app.getswipe.in/api/public/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ProductApi::class.java)
-        }
-    }
+
 }

@@ -1,3 +1,3 @@
-package com.akashsoam.productsapp
+package com.akashsoam.productsapp.models
 
 class ProductResponse : ArrayList<Product>()
