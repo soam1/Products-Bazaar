@@ -3,7 +3,6 @@ package com.akashsoam.productsapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.akashsoam.productsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,12 +13,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        NavigationUI.setupActionBarWithNavController(this, navHostFragment.navController)
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+//        setupActionBarWithNavController(navController)
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        return NavHostFragment.findNavController(binding.navHostFragment).navigateUp()
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }
