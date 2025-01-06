@@ -2,4 +2,40 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    all colors-->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimaryLight">#BB86FC</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorSecondaryDark">#018786</color>
+    <color name="colorSecondaryLight">#B9F6CA</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorError">#B00020</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondaryVariant">#03DAC6</color>
+    <color name="colorOnPrimaryVariant">#FFFFFF</color>
+    <color name="colorOnSecondaryVariant">#000000</color>
+    <color name="colorPrimaryDarkVariant">#3700B3</color>
+    <color name="colorSecondaryDarkVariant">#03DAC6</color>
+    <color name="colorPrimaryLightVariant">#BB86FC</color>
+    <color name="colorSecondaryLightVariant">#B9F6CA</color>
+    <color name="colorBackgroundVariant">#FFFFFF</color>
+    <color name="colorSurfaceVariant">#FFFFFF</color>
+    <color name="colorErrorVariant">#B00020</color>
+    <color name="colorOnBackgroundVariant">#000000</color>
+    <color name="colorOnSurfaceVariant">#000000</color>
+    <color name="colorOnErrorVariant">#FFFFFF</color>
+    <color name="colorPrimaryVariantDark">#3700B3</color>
+    <color name="colorSecondaryVariantDark">#03DAC6</color>
+    <color name="colorPrimaryVariantLight">#BB86FC</color>
+    <color name="colorSecondaryVariantLight">#B9F6CA</color>
+    <color name="colorBackgroundVariantDark">#FFFFFF</color>
+    <color name="colorSurfaceVariantDark">#FFFFFF</color>
 </resources>

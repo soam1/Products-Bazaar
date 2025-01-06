@@ -5,39 +5,59 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Enter your Product Details"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product Name" />
+        android:hint="Product Name"
+        android:inputType="textCapWords" />
 
-    <EditText
-        android:id="@+id/productType"
+    <Spinner
+        android:id="@+id/productTypeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product Type" />
+        android:layout_marginTop="8dp"
+        android:scrollbarSize="10sp"
+        android:scrollbars="vertical" />
 
     <EditText
         android:id="@+id/productPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Selling Price" />
+        android:hint="Selling Price"
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/productTax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tax Rate" />
+        android:hint="Tax Rate (%)"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/productImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Image URL" />
+        android:hint="Image URL"
+        android:inputType="textUri" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Product" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorSecondaryVariant"
+        android:text="Add My Product"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 </LinearLayout>
