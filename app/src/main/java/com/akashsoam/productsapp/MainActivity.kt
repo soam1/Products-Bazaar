@@ -1,7 +1,9 @@
 package com.akashsoam.productsapp
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.akashsoam.productsapp.databinding.ActivityMainBinding
@@ -9,13 +11,24 @@ import com.akashsoam.productsapp.db.ProductDatabase
 import com.akashsoam.productsapp.repository.ProductRepository
 import com.akashsoam.productsapp.viewmodels.ProductViewModel
 import com.akashsoam.productsapp.viewmodels.ProductViewModelProviderFactory
+import com.akashsoam.productsapp.viewmodels.SplashViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     lateinit var viewModel: ProductViewModel
+
+    private val splashViewModel: SplashViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen().apply {
+            this.setKeepOnScreenCondition() {
+                // Keep the splash screen visible, till the viewModel is loading
+                !splashViewModel.isLoading.value
+            }
+        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

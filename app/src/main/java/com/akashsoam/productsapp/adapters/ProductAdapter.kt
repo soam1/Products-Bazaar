@@ -33,7 +33,7 @@ class ProductAdapter() :
             if (product.image.isNotEmpty()) {
                 Glide.with(root.context).load(product.image).into(productImage)
             } else {
-                productImage.setImageResource(R.drawable.default_image)
+                productImage.setImageResource(R.drawable.default_image1)
             }
 
 //            setOnClickListener {

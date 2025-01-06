@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+        <item name="android:windowBackground">@drawable/default_image</item>
+        <!--        <item name="android:windowSplashScreenBackground">#202020</item>-->
+        <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/default_image</item>-->
+        <!--        <item name="windowSplashScreenAnimationDuration">2000</item>-->
+        size
+        <item name="postSplashScreenTheme">@style/Base.Theme.ProductsApp</item>
+    </style>
+</resources>
