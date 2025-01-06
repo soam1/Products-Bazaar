@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Product Name" />
+
+    <EditText
+        android:id="@+id/productType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Product Type" />
+
+    <EditText
+        android:id="@+id/productPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Selling Price" />
+
+    <EditText
+        android:id="@+id/productTax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tax Rate" />
+
+    <EditText
+        android:id="@+id/productImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Image URL" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Product" />
+</LinearLayout>

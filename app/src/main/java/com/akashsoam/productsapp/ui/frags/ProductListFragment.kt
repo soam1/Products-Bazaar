@@ -1,53 +1,50 @@
-package com.akashsoam.productsapp.ui.frags
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.akashsoam.productsapp.R
+import com.akashsoam.productsapp.data.adapters.ProductAdapter
 import com.akashsoam.productsapp.databinding.FragmentProductListBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.akashsoam.productsapp.ui.frags.AddProductBottomSheetDialogFragment
+import com.akashsoam.productsapp.ui.frags.ProductViewModel
 
 class ProductListFragment : Fragment() {
-
+    private lateinit var viewModel: ProductViewModel
     private var _binding: FragmentProductListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ProductListViewModel
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentProductListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[ProductListViewModel::class.java]
+        viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         setupRecyclerView()
-        observeViewModel()
-
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            findNavController().navigate(R.id.action_productListFragment_to_addedProductsFragment)
-        }
+        observeProducts()
+        binding.searchButton.setOnClickListener { viewModel.searchProducts(binding.searchInput.text.toString()) }
+        binding.addButton.setOnClickListener { showAddProductDialog() }
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        // Adapter setup here
+        binding.recyclerView.adapter = ProductAdapter()
     }
 
-    private fun observeViewModel() {
-        viewModel.products.observe(viewLifecycleOwner) {
-            // Update RecyclerView Adapter
-        }
+
+    private fun observeProducts() {
+        viewModel.products.observe(viewLifecycleOwner, { products ->
+            (binding.recyclerView.adapter as ProductAdapter).submitList(products)
+        })
+    }
+
+    private fun showAddProductDialog() {
+        AddProductBottomSheetDialogFragment().show(childFragmentManager, "AddProductDialog")
     }
 
     override fun onDestroyView() {
