@@ -1,3 +1,5 @@
 package com.akashsoam.productsapp.models
 
-class ProductResponse : ArrayList<Product>()
+class ProductResponse(
+
+) : ArrayList<Product>()
