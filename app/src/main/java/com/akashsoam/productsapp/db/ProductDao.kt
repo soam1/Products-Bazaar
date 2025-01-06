@@ -17,6 +17,6 @@ interface ProductDao {
     fun getAllProducts(): LiveData<List<Product>>
 
     @Delete
-    fun getProduct(product: Product)
+    fun deleteProduct(product: Product)
 
 }
