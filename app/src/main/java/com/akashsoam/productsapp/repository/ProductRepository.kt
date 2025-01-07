@@ -1,9 +1,12 @@
 package com.akashsoam.productsapp.repository
 
+import androidx.lifecycle.LiveData
 import com.akashsoam.productsapp.api.RetrofitInstance
 import com.akashsoam.productsapp.db.ProductDatabase
 import com.akashsoam.productsapp.models.AddProductResponse
 import com.akashsoam.productsapp.models.Product
+import com.akashsoam.productsapp.models.ProductResponse
+import com.akashsoam.productsapp.util.Resource
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 
@@ -35,6 +38,4 @@ class ProductRepository(val db: ProductDatabase) {
     suspend fun saveProductLocally(product: Product) {
         db.getProductDao().upsert(product)
     }
-
-
 }

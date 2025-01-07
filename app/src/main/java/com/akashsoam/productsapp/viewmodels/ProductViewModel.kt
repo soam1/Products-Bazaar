@@ -15,8 +15,9 @@ class ProductViewModel(val productRepository: ProductRepository) : ViewModel() {
 
     val productsList: MutableLiveData<Resource<ProductResponse>> = MutableLiveData()
 
-    //    val filteredProductsList: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
     val productAdditionResult = MutableLiveData<Resource<AddProductResponse>>()
+
+    val searchQuery = MutableLiveData<String>()
 
 
     init {
@@ -60,25 +61,6 @@ class ProductViewModel(val productRepository: ProductRepository) : ViewModel() {
         }
     }
 
-//    fun filterProducts(query: String) {
-////        val currentProducts =productsList.value?.data?.products  // Assuming ProductResponse has a list of products named "products"
-//        val currentProducts =
-//            productsList.value?.data // Assuming ProductResponse has a list of products named "products"
-//        if (currentProducts != null) {
-//            if (query.isEmpty()) {
-//                filteredProductsList.postValue(Resource.Success(currentProducts))
-//            } else {
-//                val filtered = currentProducts.filter {
-//                    it.product_name.contains(query, ignoreCase = true) ||
-//                            it.product_type.contains(query, ignoreCase = true)
-//                }
-//                filteredProductsList.postValue(Resource.Success(filtered))
-//            }
-//        } else {
-//            // Handle case where currentProducts is null or there's an error
-//            filteredProductsList.postValue(Resource.Error("No products available or invalid query"))
-//        }
-//    }
 
 
 }

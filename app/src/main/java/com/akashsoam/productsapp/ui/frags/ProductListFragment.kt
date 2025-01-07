@@ -20,16 +20,16 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
     }
     lateinit var viewModel: ProductViewModel
     lateinit var productAdapter: ProductAdapter
-    lateinit var searchView: View
+    lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as MainActivity).viewModel
         searchView = binding.searchView
+        searchView.isIconified = false
         binding.apply {
-            // Set up recycler view
-            // Set up adapter
+            // Setring up recycler view and adapter
             productAdapter = ProductAdapter()
             recyclerView.apply {
                 adapter = productAdapter
@@ -59,9 +59,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                 }
 
             })
-
-
-
             addButton.setOnClickListener {
                 findNavController().navigate(
                     R.id.action_productListFragment_to_addProductBottomSheetDialogFragment
@@ -71,8 +68,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         }
 
         setupSearchView()
-
-
     }
 
     private fun hideProgressBar() {
@@ -83,16 +78,16 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    //todo: Implement search functionality properly
     private fun setupSearchView() {
-//        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//        (binding.searchView as SearchView).setOnQueryTextListener(object :
+//            SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let { viewModel.filterProducts(it) }
+//                query?.let { viewModel.setQuery(it) }
 //                return true
 //            }
 //
 //            override fun onQueryTextChange(newText: String?): Boolean {
-//                newText?.let { viewModel.filterProducts(it) }
+//                newText?.let { viewModel.setQuery(it) }
 //                return true
 //            }
 //        })
