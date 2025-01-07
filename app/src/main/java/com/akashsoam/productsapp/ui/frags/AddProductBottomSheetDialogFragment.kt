@@ -1,113 +1,107 @@
 package com.akashsoam.productsapp.ui.frags
 
+import android.app.Activity
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
 import com.akashsoam.productsapp.MainActivity
 import com.akashsoam.productsapp.R
 import com.akashsoam.productsapp.databinding.FragmentAddProductBottomSheetDialogBinding
 import com.akashsoam.productsapp.models.Product
-import com.akashsoam.productsapp.util.Resource
 import com.akashsoam.productsapp.viewmodels.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 
 class AddProductBottomSheetDialogFragment :
     BottomSheetDialogFragment(R.layout.fragment_add_product_bottom_sheet_dialog) {
-    val binding: FragmentAddProductBottomSheetDialogBinding by lazy {
-        FragmentAddProductBottomSheetDialogBinding.bind(requireView())
+
+    companion object {
+        private const val REQUEST_CODE_PICK_IMAGE = 100
     }
-    lateinit var viewModel: ProductViewModel
+
+    private lateinit var binding: FragmentAddProductBottomSheetDialogBinding
+    private lateinit var viewModel: ProductViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
+        binding = FragmentAddProductBottomSheetDialogBinding.bind(view)
 
-        binding.apply {
-            val productTypes =
-                arrayOf("Utilities", "Clothing", "Food", "Books", "Health", "Beauty", "Gadgets")
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productTypes)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            productTypeSpinner.adapter = adapter
+        setupProductTypeSpinner()
+        setupSubmitButton()
+    }
 
-            submitButton.setOnClickListener {
-                val productName = binding.productName.text.toString()
-                val productType = productTypeSpinner.selectedItem.toString()
-                val productPrice = binding.productPrice.text.toString().toDoubleOrNull() ?: 0.0
-                val productTax = binding.productTax.text.toString().toIntOrNull() ?: 0
-                val productImage = binding.productImage.text.toString()
+    private fun setupProductTypeSpinner() {
+        val productTypes =
+            arrayOf("Utilities", "Clothing", "Food", "Books", "Health", "Beauty", "Gadgets")
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productTypes)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.productTypeSpinner.adapter = adapter
+    }
 
-                val product = Product(
-                    product_name = productName,
-                    product_type = productType,
-                    price = productPrice,
-                    tax = productTax,
-                    image = productImage
-                )
-                viewModel.addProduct(product)
-
-                //set up observer
-                viewModel.productAdditionResult.observe(viewLifecycleOwner) { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            hideProgressBar()
-//                            showSnackBar("Product added successfully")
-                            showProductAddedImageView()
-                            response.data?.let { productResponse ->
-                                Log.d(
-                                    "AddProductBottomSheetDialogFragment",
-                                    "Product added successfully"
-                                )
-                            }
-
-                        }
-
-                        is Resource.Error -> {
-                            hideProgressBar()
-                            response.message?.let { message ->
-                                Log.e(
-                                    "AddProductBottomSheetDialogFragment",
-                                    "This error occured: $message"
-                                )
-                            }
-                        }
-
-                        is Resource.Loading -> {
-                            showProgressBar()
-                            Log.d("AddProductBottomSheetDialogFragment", "Loading...")
-                        }
-                    }
-                }
-
-            }
+    private fun setupSubmitButton() {
+        binding.submitButton.setOnClickListener {
+            val product = createProductFromInput()
+            selectImageFromGallery(product)
         }
     }
 
-    private fun showProductAddedImageView() {
-        binding.productAddedImageView.visibility = View.VISIBLE
-        //make it disappear after 2 seconds
-        binding.productAddedImageView.postDelayed({
-            binding.productAddedImageView.visibility = View.GONE
-        }, 3000)
-        dismiss()
+    private fun createProductFromInput(): Product {
+        return Product(
+            product_name = binding.productName.text.toString(),
+            product_type = binding.productTypeSpinner.selectedItem.toString(),
+            price = binding.productPrice.text.toString().toDoubleOrNull() ?: 0.0,
+            tax = binding.productTax.text.toString().toIntOrNull() ?: 0,
+            image = ""
+        )
     }
 
-
-    private fun hideProgressBar() {
-        binding.progressBar.visibility = View.INVISIBLE
+    private fun selectImageFromGallery(product: Product) {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
     }
 
-    private fun showProgressBar() {
-        binding.progressBar.visibility = View.VISIBLE
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            val imageUri = data?.data
+            imageUri?.let {
+                viewModel.addProductWithImage(createProductFromInput(), it)
+
+//                showSnackBar("Adding product...")
+                showProductAddedImageView()
+                //show lottie animation
+
+            }
+        }
     }
 
     private fun showSnackBar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.INVISIBLE
+    }
+
+    private fun showProductAddedImageView() {
+        binding.productAddedImageView.visibility = View.VISIBLE
+        binding.productAddedImageView.postDelayed({
+            binding.productAddedImageView.visibility = View.GONE
+        }, 2000)
+        dismiss()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        viewModel.getProductsList()
     }
 }

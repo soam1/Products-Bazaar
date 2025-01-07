@@ -85,22 +85,18 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
     }
 
     private fun setupSearchView() {
-//        (binding.searchView as SearchView).setOnQueryTextListener(object :
-//            SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let { viewModel.setQuery(it) }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                newText?.let { viewModel.setQuery(it) }
-//                return true
-//            }
-//        })
+        (binding.searchView).setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.setSearchQuery(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { viewModel.setSearchQuery(it) }
+                return true
+            }
+        })
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }

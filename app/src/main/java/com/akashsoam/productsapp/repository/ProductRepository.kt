@@ -3,11 +3,10 @@ package com.akashsoam.productsapp.repository
 import com.akashsoam.productsapp.api.RetrofitInstance
 import com.akashsoam.productsapp.db.ProductDatabase
 import com.akashsoam.productsapp.models.AddProductResponse
-import com.akashsoam.productsapp.models.Product
 import com.akashsoam.productsapp.models.ProductResponse
-import com.akashsoam.productsapp.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 
@@ -30,29 +29,35 @@ class ProductRepository(val db: ProductDatabase) {
     }
 
 
+//    suspend fun addProductOnline(
+//        productName: String,
+//        productType: String,
+//        price: String,
+//        tax: String
+//    ): Response<AddProductResponse> {
+//
+//        return RetrofitInstance.api.addProduct(
+//            productName.toRequestBody(),
+//            productType.toRequestBody(),
+//            price.toRequestBody(),
+//            tax.toRequestBody()
+//        )
+//    }
 
-    suspend fun addProductOnline(
+    suspend fun addProductWithImages(
         productName: String,
         productType: String,
         price: String,
-        tax: String
+        tax: String,
+        files: List<MultipartBody.Part>
     ): Response<AddProductResponse> {
         return RetrofitInstance.api.addProduct(
             productName.toRequestBody(),
             productType.toRequestBody(),
             price.toRequestBody(),
-            tax.toRequestBody()
+            tax.toRequestBody(),
+            files
         )
     }
 
-    suspend fun upsert(product: Product) = db.getProductDao().upsert(product)
-
-    fun getSavedProducts() = db.getProductDao().getAllProducts()
-
-    suspend fun deleteProduct(product: Product) = db.getProductDao().deleteProduct(product)
-
-
-    suspend fun saveProductLocally(product: Product) {
-        db.getProductDao().upsert(product)
-    }
 }

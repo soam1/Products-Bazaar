@@ -53,6 +53,7 @@
     <ImageView
         android:id="@+id/productAddedImageView"
         android:layout_width="match_parent"
+        android:src="@drawable/product_added"
         android:layout_height="match_parent"
         android:visibility="gone" />
 

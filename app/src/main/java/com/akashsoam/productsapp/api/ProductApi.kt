@@ -3,6 +3,7 @@ package com.akashsoam.productsapp.api
 import com.akashsoam.productsapp.models.AddProductResponse
 import com.akashsoam.productsapp.models.ProductResponse
 import com.akashsoam.productsapp.util.Constants
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -22,7 +23,8 @@ interface ProductApi {
         @Part("product_name") productName: RequestBody,
         @Part("product_type") productType: RequestBody,
         @Part("price") price: RequestBody,
-        @Part("tax") tax: RequestBody
+        @Part("tax") tax: RequestBody,
+        @Part files: List<MultipartBody.Part>? // Optional image files
     ): Response<AddProductResponse>
 
 }
