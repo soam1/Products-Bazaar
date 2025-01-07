@@ -1,6 +1,7 @@
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -51,6 +52,11 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
                         response.message?.let { message ->
                             Log.e("ProductListFragment", "This error occured: $message")
                         }
+                        Toast.makeText(
+                            activity,
+                            "Error: ${response.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                     is Resource.Loading -> {
@@ -92,6 +98,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
 //            }
 //        })
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

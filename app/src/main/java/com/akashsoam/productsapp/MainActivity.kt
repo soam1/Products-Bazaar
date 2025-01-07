@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         //now finally architecture implement karo
         val repository = ProductRepository(ProductDatabase(this))
-        val viewModelProviderFactory = ProductViewModelProviderFactory(repository)
+        val viewModelProviderFactory =
+            ProductViewModelProviderFactory(repository, application)
         viewModel =
             ViewModelProvider(this, viewModelProviderFactory).get(ProductViewModel::class.java)
 
