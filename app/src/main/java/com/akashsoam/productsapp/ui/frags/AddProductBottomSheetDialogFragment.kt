@@ -1,5 +1,7 @@
 package com.akashsoam.productsapp.ui.frags
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -7,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.akashsoam.productsapp.MainActivity
 import com.akashsoam.productsapp.R
 import com.akashsoam.productsapp.databinding.FragmentAddProductBottomSheetDialogBinding
@@ -22,6 +25,8 @@ class AddProductBottomSheetDialogFragment :
         private const val REQUEST_CODE_PICK_IMAGE = 100
     }
 
+    private lateinit var lottieAnimationView: LottieAnimationView
+
     private lateinit var binding: FragmentAddProductBottomSheetDialogBinding
     private lateinit var viewModel: ProductViewModel
 
@@ -29,6 +34,8 @@ class AddProductBottomSheetDialogFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
         binding = FragmentAddProductBottomSheetDialogBinding.bind(view)
+        lottieAnimationView = binding.lottieAnimationView
+
 
         setupProductTypeSpinner()
         setupSubmitButton()
@@ -93,11 +100,31 @@ class AddProductBottomSheetDialogFragment :
     }
 
     private fun showProductAddedImageView() {
-        binding.productAddedImageView.visibility = View.VISIBLE
-        binding.productAddedImageView.postDelayed({
-            binding.productAddedImageView.visibility = View.GONE
+        // Hide any progress bars or other UI elements as needed
+        hideProgressBar()
+
+        // Set up and start the Lottie animation
+        lottieAnimationView.visibility = View.VISIBLE
+        lottieAnimationView.playAnimation()
+
+        // Dismiss the dialog after the animation has completed
+        lottieAnimationView.addAnimatorListener(object :
+            AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                lottieAnimationView.visibility = View.GONE
+                dismiss()  // Make sure this is the correct approach to dismissing in your app's flow
+            }
+        })
+
+        // Optionally set a fixed delay if the animation does not have a set duration
+        // This is just in case you want to ensure the animation plays for exactly 2 seconds
+        lottieAnimationView.postDelayed({
+            if (lottieAnimationView.isAnimating) {
+                lottieAnimationView.cancelAnimation()
+            }
+            lottieAnimationView.visibility = View.GONE
+            dismiss()
         }, 2000)
-        dismiss()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
