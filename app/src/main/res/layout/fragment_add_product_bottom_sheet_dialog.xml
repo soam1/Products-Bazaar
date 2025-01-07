@@ -44,6 +44,18 @@
         android:hint="Tax Rate (%)"
         android:inputType="number" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/productAddedImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/productImage"
         android:layout_width="match_parent"

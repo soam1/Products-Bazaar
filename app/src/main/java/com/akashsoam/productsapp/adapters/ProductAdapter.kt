@@ -27,7 +27,7 @@ class ProductAdapter() :
         val product = differ.currentList[position]
         holder.binding.apply {
             productName.text = product.product_name
-            productType.text = product.product_type
+            productType.text = "category:${product.product_type}"
             productPrice.text = "Price: ${product.price}"
             productTax.text = "Tax: ${product.tax}"
             if (product.image.isNotEmpty()) {
