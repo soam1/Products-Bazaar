@@ -166,24 +166,22 @@ class ProductViewModel(private val productRepository: ProductRepository, applica
     }
 
     private fun loadProductsFromDatabase() {
-//        viewModelScope.launch {
-//            try {
-////                val localProducts = productRepository.getSavedProducts()
-//                if (productsFromDb == null) {
-//                    productsList.postValue(Resource.Error("No products available offline"))
-//                } else {
-//                    productsList.postValue(Resource.Success(ProductResponse().apply {
-//                        addAll(
-//                            localProducts
-//                        )
-//                    }))
-//                }
-//            } catch (e: Exception) {
-//                productsList.postValue(Resource.Error("Error loading local data: ${e.message}"))
-//            }
-//        }
+        viewModelScope.launch {
+            try {
+                productRepository.getSavedProducts().observeForever { localProducts ->
+                    if (localProducts.isNullOrEmpty()) {
+                        productsList.postValue(Resource.Error("No products available offline"))
+                    } else {
+                        productsList.postValue(Resource.Success(ProductResponse().apply {
+                            addAll(localProducts)
+                        }))
+                    }
+                }
+            } catch (e: Exception) {
+                productsList.postValue(Resource.Error("Error loading local data: ${e.message}"))
+            }
+        }
     }
-
 
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<ProductApplication>().getSystemService(
@@ -218,7 +216,6 @@ class ProductViewModel(private val productRepository: ProductRepository, applica
         viewModelScope.launch {
             productsList.postValue(Resource.Loading())
             try {
-                // Assuming getFilteredProducts now properly observes LiveData
                 productRepository.getFilteredProducts(query).observeForever { products ->
                     val productResponse = ProductResponse()
                     productResponse.addAll(products)

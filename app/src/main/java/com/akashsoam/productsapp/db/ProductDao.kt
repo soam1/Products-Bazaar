@@ -22,4 +22,5 @@ interface ProductDao {
 
     @Query("SELECT * FROM products WHERE product_name LIKE :searchQuery OR product_type LIKE :searchQuery")
     fun searchProducts(searchQuery: String): LiveData<List<Product>>
+
 }
