@@ -23,4 +23,10 @@ interface ProductDao {
     @Query("SELECT * FROM products WHERE product_name LIKE :searchQuery OR product_type LIKE :searchQuery")
     fun searchProducts(searchQuery: String): LiveData<List<Product>>
 
+
+    @Query("SELECT * FROM products WHERE isSynced = 0")
+    fun getUnsyncedProducts(): List<Product>
+
+    @Query("UPDATE products SET isSynced = 1 WHERE id = :productId")
+    suspend fun markProductAsSynced(productId: Int)
 }

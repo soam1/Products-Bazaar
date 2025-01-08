@@ -9,9 +9,12 @@ import com.akashsoam.productsapp.models.Product
 import com.akashsoam.productsapp.models.ProductResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
+import java.io.File
 
 class ProductRepository(val db: ProductDatabase) {
 
@@ -80,4 +83,34 @@ class ProductRepository(val db: ProductDatabase) {
         return db.getProductDao().searchProducts(sqlQuery)
     }
 
+
+    suspend fun addProductOffline(product: Product) {
+        product.isSynced = false
+        db.getProductDao().upsert(product)
+    }
+
+    fun getUnsyncedProducts(): List<Product> {
+        return db.getProductDao().getUnsyncedProducts()
+    }
+
+    suspend fun syncProductWithServer(product: Product): Response<AddProductResponse> {
+        val imagePart = if (product.image.isNotBlank()) {
+            val file = File(product.image)
+            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+        } else {
+            null
+        }
+        return RetrofitInstance.api.addProduct(
+            product.product_name.toRequestBody(),
+            product.product_type.toRequestBody(),
+            product.price.toString().toRequestBody(),
+            product.tax.toString().toRequestBody(),
+            listOfNotNull(imagePart)
+        )
+    }
+
+    suspend fun markProductAsSynced(productId: Int) {
+        db.getProductDao().markProductAsSynced(productId)
+    }
 }

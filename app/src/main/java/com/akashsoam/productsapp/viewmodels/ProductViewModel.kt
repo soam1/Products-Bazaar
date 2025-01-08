@@ -155,6 +155,7 @@ class ProductViewModel(private val productRepository: ProductRepository, applica
             } else {
                 productsList.postValue(Resource.Error("No internet connection, please check your network"))
                 loadProductsFromDatabase()
+
             }
         } catch (t: Throwable) {
             when (t) {

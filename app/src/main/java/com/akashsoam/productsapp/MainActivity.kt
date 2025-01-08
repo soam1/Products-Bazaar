@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.akashsoam.productsapp.databinding.ActivityMainBinding
 import com.akashsoam.productsapp.db.ProductDatabase
 import com.akashsoam.productsapp.repository.ProductRepository
+import com.akashsoam.productsapp.util.WorkScheduler
 import com.akashsoam.productsapp.viewmodels.ProductViewModel
 import com.akashsoam.productsapp.viewmodels.ProductViewModelProviderFactory
 import com.akashsoam.productsapp.viewmodels.SplashViewModel
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        WorkScheduler(this).scheduleProductSync()
 
         //now finally architecture implement karo
         val repository = ProductRepository(ProductDatabase(this))
@@ -42,9 +43,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this, viewModelProviderFactory).get(ProductViewModel::class.java)
 
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+//        val navController = navHostFragment.navController
 //        setupActionBarWithNavController(navController)
     }
 

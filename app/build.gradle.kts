@@ -106,9 +106,22 @@ dependencies {
 
     //splash api
     implementation("androidx.core:core-splashscreen:1.0.1")
-    
-    
+
+
     //lottie animation
     implementation("com.airbnb.android:lottie:6.6.2")
 
+    //work manager for background tasks
+//    implementation("androidx.work:work-runtime-ktx:2.10.0")
+    //koin for dependency injection
+    implementation("io.insert-koin:koin-android:3.2.0")
+//    implementation("io.insert-koin:koin-androidx-scope:3.2.0")
+//    implementation("io.insert-koin:koin-androidx-viewmodel:3.2.0")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.2.0")
+//    implementation("io.insert-koin:koin-androidx-fragment:3.2.0")
+//    implementation("io.insert-koin:koin-androidx-compose:3.2.0")
+
+
 }
+
+
