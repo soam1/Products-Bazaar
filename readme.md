@@ -3,9 +3,11 @@
 ## Overview
 
 The Products App is an Android application designed to manage a list of products. It allows users to
-add, search, and view products with details such as name, type, price, and tax. The app uses modern
-Android development practices, including MVVM architecture, LiveData, ViewModel, and WorkManager for
-background tasks.
+add, search, and view products with details such as name, type, price, and tax. The app **uses
+modern
+Android development practices, including MVVM architecture,Retrofit for rest api calls, LiveData,
+ViewModel, koin for DI, splash
+API for splash screen, jetpack navigation components, and WorkManager for background tasks**.
 
 ## Detailed Project Structure
 
@@ -83,6 +85,25 @@ background tasks.
 4. Commit your changes (`git commit -m 'Add some feature'`).
 5. Push to the branch (`git push origin feature-branch`).
 6. Open a pull request.
+
+## Sample Images
+
+Below are a few screenshots that highlight different aspects and features of the Products App. These images provide a glimpse into the user interface and functionality, including the product listing, addition of new products, and the search feature.
+
+### Main Screen
+![Main Screen](src/main/res/drawable/main_screen.png)
+
+### Product Listing
+![Product Listing](src/main/res/drawable/product_listing.png)
+
+### Add Product Dialog
+![Add Product](src/main/res/drawable/add_product_dialog.png)
+![Add Product](src/main/res/drawable/add_product_dialog2.png)
+
+### Search Functionality
+![Search Functionality](src/main/res/drawable/search_functionality.png)
+
+These images are intended to give a quick overview of the app’s capabilities and user interface.
 
 ## License
 
