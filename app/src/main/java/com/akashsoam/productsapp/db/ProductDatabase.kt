@@ -7,7 +7,8 @@ import androidx.room.TypeConverters
 import com.akashsoam.productsapp.models.Product
 
 @Database(
-    entities = [Product::class], version = 1
+    entities = [Product::class], version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class ProductDatabase : RoomDatabase() {

@@ -100,24 +100,19 @@ class AddProductBottomSheetDialogFragment :
     }
 
     private fun showProductAddedImageView() {
-        // Hide any progress bars or other UI elements as needed
         hideProgressBar()
 
-        // Set up and start the Lottie animation
         lottieAnimationView.visibility = View.VISIBLE
         lottieAnimationView.playAnimation()
 
-        // Dismiss the dialog after the animation has completed
         lottieAnimationView.addAnimatorListener(object :
             AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 lottieAnimationView.visibility = View.GONE
-                dismiss()  // Make sure this is the correct approach to dismissing in your app's flow
+                dismiss()
             }
         })
 
-        // Optionally set a fixed delay if the animation does not have a set duration
-        // This is just in case you want to ensure the animation plays for exactly 2 seconds
         lottieAnimationView.postDelayed({
             if (lottieAnimationView.isAnimating) {
                 lottieAnimationView.cancelAnimation()

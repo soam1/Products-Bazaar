@@ -69,12 +69,12 @@
         app:lottie_rawRes="@raw/success_animation" /> <!-- Ensure you have a success_animation.json in your res/raw folder -->
 
 
-    <EditText
-        android:id="@+id/productImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Image URL"
-        android:inputType="textUri" />
+    <!--    <EditText-->
+    <!--        android:id="@+id/productImage"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Image URL"-->
+    <!--        android:inputType="textUri" />-->
 
     <Button
         android:id="@+id/submitButton"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorSecondaryVariant"
-        android:text="Add My Product"
+        android:text="Upload Image and add Product"
         android:textColor="@color/black"
         android:textSize="16sp" />
 </LinearLayout>
