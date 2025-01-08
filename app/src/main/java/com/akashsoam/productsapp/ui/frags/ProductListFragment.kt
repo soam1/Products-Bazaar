@@ -85,8 +85,7 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
     }
 
     private fun setupSearchView() {
-        (binding.searchView).setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { viewModel.setSearchQuery(it) }
                 return true
@@ -98,5 +97,6 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
             }
         })
     }
+
 
 }

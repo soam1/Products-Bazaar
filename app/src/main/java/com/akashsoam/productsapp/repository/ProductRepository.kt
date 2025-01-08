@@ -1,8 +1,11 @@
 package com.akashsoam.productsapp.repository
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import com.akashsoam.productsapp.api.RetrofitInstance
 import com.akashsoam.productsapp.db.ProductDatabase
 import com.akashsoam.productsapp.models.AddProductResponse
+import com.akashsoam.productsapp.models.Product
 import com.akashsoam.productsapp.models.ProductResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,11 +23,18 @@ class ProductRepository(val db: ProductDatabase) {
             response.body()?.let { products ->
                 withContext(Dispatchers.IO) {
                     products.forEach { product ->
-                        db.getProductDao().upsert(product)
+                        val result = db.getProductDao().upsert(product)
+                        Log.d(
+                            "ProductRepository",
+                            "Upsert result for ${product.product_name}: $result "
+                        )
                     }
                 }
             }
+        } else {
+            Log.e("ProductRepository", "Failed to fetch products: ${response.message()}")
         }
+
         return response
     }
 
@@ -58,6 +68,16 @@ class ProductRepository(val db: ProductDatabase) {
             tax.toRequestBody(),
             files
         )
+    }
+
+    fun getSavedProducts(): LiveData<List<Product>> {
+        return db.getProductDao().getAllProducts()
+    }
+
+    fun getFilteredProducts(query: String): LiveData<List<Product>> {
+        // Modify the query to use SQL's LIKE wildcard before and after the search term
+        val sqlQuery = "%${query.replace(' ', '%')}%"
+        return db.getProductDao().searchProducts(sqlQuery)
     }
 
 }

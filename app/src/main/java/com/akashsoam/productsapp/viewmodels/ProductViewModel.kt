@@ -30,16 +30,19 @@ import okio.IOException
 import retrofit2.Response
 import java.io.File
 
-class ProductViewModel(val productRepository: ProductRepository, application: Application) :
+class ProductViewModel(private val productRepository: ProductRepository, application: Application) :
     AndroidViewModel(
         application
     ) {
 
     val productsList: MutableLiveData<Resource<ProductResponse>> = MutableLiveData()
 
-    val productAdditionResult = MutableLiveData<Resource<AddProductResponse>>()
+    private val productAdditionResult = MutableLiveData<Resource<AddProductResponse>>()
 
     private val searchQuery = MutableStateFlow("")
+
+    val productsFromDb = productRepository.getSavedProducts()
+
 
     init {
         getProductsList()
@@ -150,14 +153,35 @@ class ProductViewModel(val productRepository: ProductRepository, application: Ap
                 val response = productRepository.getProducts()
                 productsList.postValue(handleProductResponse(response))
             } else {
-                productsList.postValue(Resource.Error("No internet connection"))
+                productsList.postValue(Resource.Error("No internet connection, please check your network"))
+                loadProductsFromDatabase()
             }
         } catch (t: Throwable) {
             when (t) {
                 is IOException -> productsList.postValue(Resource.Error("Network Failure"))
                 else -> productsList.postValue(Resource.Error("Conversion Error"))
             }
+            loadProductsFromDatabase()
         }
+    }
+
+    private fun loadProductsFromDatabase() {
+//        viewModelScope.launch {
+//            try {
+////                val localProducts = productRepository.getSavedProducts()
+//                if (productsFromDb == null) {
+//                    productsList.postValue(Resource.Error("No products available offline"))
+//                } else {
+//                    productsList.postValue(Resource.Success(ProductResponse().apply {
+//                        addAll(
+//                            localProducts
+//                        )
+//                    }))
+//                }
+//            } catch (e: Exception) {
+//                productsList.postValue(Resource.Error("Error loading local data: ${e.message}"))
+//            }
+//        }
     }
 
 
@@ -190,16 +214,19 @@ class ProductViewModel(val productRepository: ProductRepository, application: Ap
         return false
     }
 
-
-//    fun setSearchQuery(query: String) {
-//        searchQuery.value = query
-//    }
-
     fun setSearchQuery(query: String) {
-//        viewModelScope.launch {
-//            productsList.postValue(Resource.Loading())
-//            val response = productRepository.searchProducts(query)
-//            productsList.postValue(response)
-//        }
+        viewModelScope.launch {
+            productsList.postValue(Resource.Loading())
+            try {
+                // Assuming getFilteredProducts now properly observes LiveData
+                productRepository.getFilteredProducts(query).observeForever { products ->
+                    val productResponse = ProductResponse()
+                    productResponse.addAll(products)
+                    productsList.postValue(Resource.Success(productResponse))
+                }
+            } catch (e: Exception) {
+                productsList.postValue(Resource.Error("Error loading data: ${e.message}"))
+            }
+        }
     }
 }
