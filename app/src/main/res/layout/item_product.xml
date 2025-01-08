@@ -21,6 +21,8 @@
             android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +33,9 @@
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/productName"
             app:layout_constraintTop_toBottomOf="@id/productName" />
@@ -39,6 +44,9 @@
             android:id="@+id/productType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/productPrice"
             app:layout_constraintTop_toBottomOf="@id/productPrice" />
@@ -47,6 +55,8 @@
             android:id="@+id/productTax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/productType"
