@@ -126,6 +126,6 @@ class AddProductBottomSheetDialogFragment :
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        viewModel.getProductsList()
+//        viewModel.getProductsList()
     }
 }

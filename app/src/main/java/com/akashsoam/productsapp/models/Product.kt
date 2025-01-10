@@ -1,11 +1,11 @@
 package com.akashsoam.productsapp.models
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "products"
-)
+@Entity(tableName = "products", indices = [Index(value = ["product_name"], unique = true)])
+
 data class Product(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,

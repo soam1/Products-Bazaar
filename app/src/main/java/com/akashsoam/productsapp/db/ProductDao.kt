@@ -10,7 +10,7 @@ import com.akashsoam.productsapp.models.Product
 
 @Dao
 interface ProductDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun upsert(product: Product): Long
 
     @Query("SELECT * FROM products")

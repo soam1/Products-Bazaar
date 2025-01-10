@@ -29,6 +29,8 @@ class ProductListFragment : Fragment(R.layout.fragment_product_list) {
         viewModel = (activity as MainActivity).viewModel
         searchView = binding.searchView
         searchView.isIconified = false
+        searchView.queryHint = "Search products"
+        searchView.setIconifiedByDefault(false)
         binding.apply {
             // Setring up recycler view and adapter
             productAdapter = ProductAdapter()
