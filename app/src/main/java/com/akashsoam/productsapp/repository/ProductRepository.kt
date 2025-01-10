@@ -83,14 +83,17 @@ class ProductRepository(val db: ProductDatabase) {
     }
 
 
-    suspend fun addProductOffline(product: Product) {
-        product.isSynced = false
-        db.getProductDao().upsert(product)
+//    suspend fun addProductOffline(product: Product) {
+//        product.isSynced = false
+//        db.getProductDao().upsert(product)
+//    }
+
+    suspend fun getUnsyncedProducts(): List<Product> {
+        return withContext(Dispatchers.IO) {
+            db.getProductDao().getUnsyncedProducts()
+        }
     }
 
-    fun getUnsyncedProducts(): List<Product> {
-        return db.getProductDao().getUnsyncedProducts()
-    }
 
     suspend fun syncProductWithServer(product: Product): Response<AddProductResponse> {
         val imagePart = if (product.image.isNotBlank()) {
@@ -108,6 +111,7 @@ class ProductRepository(val db: ProductDatabase) {
             listOfNotNull(imagePart)
         )
     }
+
 
     suspend fun markProductAsSynced(productId: Int) {
         db.getProductDao().markProductAsSynced(productId)

@@ -42,10 +42,13 @@ class AddProductBottomSheetDialogFragment :
     }
 
     private fun setupProductTypeSpinner() {
-        val productTypes =
-            arrayOf("Utilities", "Clothing", "Food", "Books", "Health", "Beauty", "Gadgets")
-        val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productTypes)
+//        val productTypes = arrayOf("Utilities", "Clothing", "Food", "Books", "Health", "Beauty", "Gadgets")
+//        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, productTypes)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.product_type_array)
+        )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.productTypeSpinner.adapter = adapter
     }

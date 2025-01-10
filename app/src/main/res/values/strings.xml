@@ -2,4 +2,14 @@
     <string name="app_name">ProductsApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="product_type_array">
+        <item>Utilities</item>
+        <item>Clothing</item>
+        <item>Food</item>
+        <item>Books</item>
+        <item>Health</item>
+        <item>Beauty</item>
+        <item>Gadgets</item>
+    </string-array>
+
 </resources>

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_product_details"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -10,53 +11,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:text="Enter your Product Details"
-        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/productName"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product Name"
-        android:inputType="textCapWords" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Product Name"
+            android:inputType="textCapWords" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:text="Select Product Type:" />
 
     <Spinner
         android:id="@+id/productTypeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:scrollbarSize="10sp"
-        android:scrollbars="vertical" />
+        android:layout_marginTop="8dp" />
 
-    <EditText
-        android:id="@+id/productPrice"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Selling Price"
-        android:inputType="numberDecimal" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/productTax"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Selling Price"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tax Rate (%)"
-        android:inputType="number" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productTax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tax Rate (%)"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.MaterialComponents.Light"
         android:visibility="gone" />
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/productAddedImageView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:src="@drawable/product_added"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:visibility="gone" />-->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -66,15 +85,7 @@
         android:visibility="gone"
         app:lottie_autoPlay="false"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/success_animation" /> <!-- Ensure you have a success_animation.json in your res/raw folder -->
-
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/productImage"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:hint="Image URL"-->
-    <!--        android:inputType="textUri" />-->
+        app:lottie_rawRes="@raw/success_animation" />
 
     <Button
         android:id="@+id/submitButton"
@@ -84,5 +95,6 @@
         android:backgroundTint="@color/colorSecondaryVariant"
         android:text="Upload Image and add Product"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 </LinearLayout>

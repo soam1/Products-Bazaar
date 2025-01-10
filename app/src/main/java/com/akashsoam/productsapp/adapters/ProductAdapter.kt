@@ -31,7 +31,8 @@ class ProductAdapter() :
             productPrice.text = "Price: ${product.price}"
             productTax.text = "Tax: ${product.tax} %"
             if (product.image.isNotEmpty()) {
-                Glide.with(root.context).load(product.image).into(productImage)
+                Glide.with(root.context).load(product.image).error(R.drawable.image_unavailable)
+                    .into(productImage)
             } else {
                 productImage.setImageResource(R.drawable.default_image1)
             }

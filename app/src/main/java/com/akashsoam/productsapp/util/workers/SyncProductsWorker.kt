@@ -1,6 +1,7 @@
 package com.akashsoam.productsapp.util.workers
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.akashsoam.productsapp.repository.ProductRepository
@@ -14,19 +15,20 @@ class SyncProductsWorker(
     private val productRepository: ProductRepository by inject()
 
     override suspend fun doWork(): Result {
-        try {
+        return try {
             val unsyncedProducts = productRepository.getUnsyncedProducts()
             unsyncedProducts.forEach { product ->
                 val response = productRepository.syncProductWithServer(product)
                 if (response.isSuccessful) {
                     productRepository.markProductAsSynced(product.id!!)
                 } else {
-                    throw Exception("Failed to sync product: ${product.id}")
+                    Log.e("SyncWorker", "Failed to sync product: ${product.id}")
                 }
             }
-            return Result.success()
+            Result.success()
         } catch (e: Exception) {
-            return Result.retry()
+            Log.e("SyncWorker", "Exception during syncing products: ${e.message}")
+            Result.retry()
         }
     }
 }

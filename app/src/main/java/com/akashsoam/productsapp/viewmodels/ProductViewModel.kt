@@ -169,15 +169,26 @@ class ProductViewModel(private val productRepository: ProductRepository, applica
     private fun loadProductsFromDatabase() {
         viewModelScope.launch {
             try {
-                productRepository.getSavedProducts().observeForever { localProducts ->
-                    if (localProducts.isNullOrEmpty()) {
-                        productsList.postValue(Resource.Error("No products available offline"))
-                    } else {
-                        productsList.postValue(Resource.Success(ProductResponse().apply {
-                            addAll(localProducts)
-                        }))
-                    }
+//                productRepository.getSavedProducts().observeForever { localProducts ->
+////                productRepository.getUnsyncedProducts().forEach { localProducts ->
+//                    if (localProducts.isNullOrEmpty()) {
+//                        productsList.postValue(Resource.Error("No products available offline"))
+//                    } else {
+//                        productsList.postValue(Resource.Success(ProductResponse().apply {
+//                            addAll(localProducts)
+//                        }))
+//                    }
+//                }
+                //get unsynced products from db
+                val unsyncedProducts = productRepository.getUnsyncedProducts()
+                if (unsyncedProducts.isEmpty()) {
+                    productsList.postValue(Resource.Error("No products available offline"))
+                } else {
+                    productsList.postValue(Resource.Success(ProductResponse().apply {
+                        addAll(unsyncedProducts)
+                    }))
                 }
+
             } catch (e: Exception) {
                 productsList.postValue(Resource.Error("Error loading local data: ${e.message}"))
             }
