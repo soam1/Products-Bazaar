@@ -88,22 +88,22 @@ API for splash screen, jetpack navigation components, and WorkManager for backgr
 
 ## Sample Images
 
-Below are a few screenshots that highlight different aspects and features of the Products App. These images provide a glimpse into the user interface and functionality, including the product listing, addition of new products, and the search feature.
-
-### Main Screen
-![Main Screen](src/main/res/drawable/main_screen.png)
+Below are a few screenshots that highlight different aspects and features of the Products App. These images provide a glimpse into the user interface and functionality, including the product listing, addition of new products, and the search using product name or category feature.
 
 ### Product Listing
-![Product Listing](src/main/res/drawable/product_listing.png)
+![Product Listing](samples/product_list_fragment.jpeg)
 
 ### Add Product Dialog
-![Add Product](src/main/res/drawable/add_product_dialog.png)
-![Add Product](src/main/res/drawable/add_product_dialog2.png)
+![Add Product](samples/add_product_diag_frag.jpeg)
 
 ### Search Functionality
-![Search Functionality](src/main/res/drawable/search_functionality.png)
+![Search Functionality](samples/search_product.jpeg)
 
 These images are intended to give a quick overview of the app’s capabilities and user interface.
+
+## Demo Video
+
+![Application run demo](samples/vdo_demo.mp4)
 
 ## License
 
