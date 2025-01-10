@@ -78,7 +78,6 @@ class ProductRepository(val db: ProductDatabase) {
     }
 
     fun getFilteredProducts(query: String): LiveData<List<Product>> {
-        // Modify the query to use SQL's LIKE wildcard before and after the search term
         val sqlQuery = "%${query.replace(' ', '%')}%"
         return db.getProductDao().searchProducts(sqlQuery)
     }

@@ -81,7 +81,6 @@ class AddProductBottomSheetDialogFragment :
 
 //                showSnackBar("Adding product...")
                 showProductAddedImageView()
-                //show lottie animation
 
             }
         }

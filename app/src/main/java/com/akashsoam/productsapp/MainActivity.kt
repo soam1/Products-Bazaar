@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         installSplashScreen().apply {
             this.setKeepOnScreenCondition() {
-                // Keep the splash screen visible, till the viewModel is loading
+                // Keep the splash screen visible, till the viewModel is loading....
                 !splashViewModel.isLoading.value
             }
         }
